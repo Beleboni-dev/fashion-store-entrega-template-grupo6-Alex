@@ -5,6 +5,13 @@ export const AdminPage = () => {
     return (
         <>
             <HeaderAdmin />
+            <main>
+                <nav>
+                    <button>Início</button>
+                    <button>Produtos</button>
+                </nav>
+
+            </main>
             <Footer />
         </>
     )
