@@ -8,9 +8,9 @@ export const StyledFooter = styled.footer`
     bottom: 0;
 
 
-    color: white;
-    background-color: black;
+    color: var(--Color-White);
+    background-color: var(--Color-Black);
     
-    padding: 1.875rem;
+    padding: 40px;
     width: 100%;
 `

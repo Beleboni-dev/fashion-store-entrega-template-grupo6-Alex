@@ -6,7 +6,7 @@ export const HeaderUser = () => {
     return (
         <StyledHeaderUser>
             <Logomarca />
-            <AiOutlineShoppingCart />
+            <AiOutlineShoppingCart size={30}/>
         </StyledHeaderUser>
     )
 }
