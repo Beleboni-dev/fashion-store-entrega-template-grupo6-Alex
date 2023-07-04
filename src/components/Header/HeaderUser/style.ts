@@ -6,6 +6,7 @@ export const StyledHeaderUser = styled.header`
   justify-content: space-between;
 
   width: 80%;
+
   margin: 0 auto;
   padding: 1.875rem;
 

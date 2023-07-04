@@ -6,7 +6,5 @@ export const StyledFooter = styled.footer`
 
     color: var(--Color-White);
     background-color: var(--Color-Black);
-    
     padding: 40px;
-    width: 100%;
 `
