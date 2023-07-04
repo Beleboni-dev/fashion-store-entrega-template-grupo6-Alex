@@ -34,7 +34,7 @@ export const ProductList = () => {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <img src={product.image} alt={product.name} />
+            <div><img src={product.image} alt={product.name} /></div>
             <h3>{product.name}</h3>
             <p>R${parseFloat(product.price).toFixed(2).replace(".", ",")}</p>
           <ShowMore />

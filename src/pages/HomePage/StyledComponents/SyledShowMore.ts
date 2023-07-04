@@ -13,6 +13,7 @@ export const StyledShowMore = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
   span {
     color: var(--Color-Black);
