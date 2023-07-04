@@ -53,7 +53,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         setProducts,
         cartItems,
         addToCart,
-        removeFromCart
+        removeFromCart,
+ 
       }}
     >
       {children}
