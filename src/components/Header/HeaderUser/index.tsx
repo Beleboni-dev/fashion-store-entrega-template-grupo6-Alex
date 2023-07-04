@@ -4,9 +4,9 @@ import { StyledHeaderUser } from "./style"
 
 export const HeaderUser = () => {
     return (
-        <StyledHeaderUser>
-            <Logomarca />
-            <AiOutlineShoppingCart size={30}/>
-        </StyledHeaderUser>
-    )
+      <StyledHeaderUser>
+        <Logomarca />
+        <AiOutlineShoppingCart size={30} style={{ cursor: "pointer" }} />
+      </StyledHeaderUser>
+    );
 }

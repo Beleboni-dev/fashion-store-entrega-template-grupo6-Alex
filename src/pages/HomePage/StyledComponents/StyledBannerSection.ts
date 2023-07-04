@@ -4,6 +4,7 @@ export const StyledBannerSection = styled.section`
   display: flex;
   gap: 60px;
   align-items: center;  
+  
   div:first-child {
     width:100%;
     max-width: 941px;
