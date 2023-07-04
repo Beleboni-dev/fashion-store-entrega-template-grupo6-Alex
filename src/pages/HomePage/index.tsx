@@ -3,6 +3,7 @@ import { StyledHomePage } from "./style";
 import homeMax from "../../assets/img/homemax.png";
 import { ProductList } from "./HomeComponents/ProductsList";
 import { StyledBannerSection } from "./StyledComponents/StyledBannerSection";
+
 export const HomePage = () => {
   return (
     <HomeTemplate>

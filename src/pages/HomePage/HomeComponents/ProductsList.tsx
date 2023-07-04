@@ -28,6 +28,7 @@ export const ProductList = () => {
   };
 
   return (
+
     <StyledListSection>
       <h2>Produtos em Destaque</h2>
       <ul>
@@ -41,6 +42,7 @@ export const ProductList = () => {
         ))}
       </ul>
     </StyledListSection>
+
   );
 };
 
