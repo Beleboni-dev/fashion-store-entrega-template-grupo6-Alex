@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
+import { StyledListSection } from "../StyledComponents/StyledListSection";
+import { ShowMore } from "./ShowMore";
 
 interface Product {
   id: number;
   name: string;
-  price: number;
+  price: string;
   description: string;
   image: string;
 }
@@ -26,21 +28,19 @@ export const ProductList = () => {
   };
 
   return (
-    <div>
+    <StyledListSection>
       <h2>Produtos em Destaque</h2>
-      {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Preço: R${product.price.toFixed(2)}</p>
-          <img
-            src={product.image}
-            alt={product.name}
-            style={{ width: "200px" }}
-          />
-        </div>
-      ))}
-    </div>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>R${parseFloat(product.price).toFixed(2).replace(".", ",")}</p>
+          <ShowMore />
+          </li>
+        ))}
+      </ul>
+    </StyledListSection>
   );
 };
 
