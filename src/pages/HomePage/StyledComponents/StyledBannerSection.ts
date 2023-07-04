@@ -3,7 +3,8 @@ import { styled } from "styled-components";
 export const StyledBannerSection = styled.section`
   display: flex;
   gap: 60px;
-  align-items: center;  
+  align-items: center; 
+  flex-wrap: wrap; 
   
   div:first-child {
     width:100%;
@@ -36,6 +37,23 @@ export const StyledBannerSection = styled.section`
       font-weight: 500;
       letter-spacing: 2.16px;
       text-transform: uppercase;
+    }
+  }
+  @media(max-width: 768px){
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    h1{
+      font-size:60px;
+    }
+    div:first-child {
+    height: 302px;
+    }
+    div:last-child {
+      min-width: 90%;
+    }
+    button{
+      min-width: 80%;
     }
   }
 `;
