@@ -10,33 +10,60 @@ interface IUserContext {
   cartItems: IProduct[];
   addToCart: (product: IProduct) => void;
   removeFromCart: (productId: number) => void;
+  isCartOpen: boolean;
+  setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  totalValue: number;
 }
 
 interface IUserProviderProps {
   children: React.ReactNode;
 }
 
-interface IProduct {
+export interface IProduct {
   id: number;
   name: string;
   price: number;
   description: string;
   image: string;
+  quantity: number;
 }
 
 export const UserProvider = ({ children }: IUserProviderProps) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [cartItems, setCartItems] = useState<IProduct[]>([]);
+  const [isCartOpen, setCartOpen] = useState<boolean>(false);
 
   const addToCart = (product: IProduct) => {
-    setCartItems((prevCartItems) => [...prevCartItems, product]);
-  };
+    const existingItem = cartItems.find((item) => item.id === product.id);
 
+    if (existingItem) {
+      const updatedItems = cartItems.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      setCartItems(updatedItems);
+    } else {
+      const newItem = { ...product, quantity: 1 };
+      setCartItems((prevCartItems) => [...prevCartItems, newItem]);
+    }
+  };
   const removeFromCart = (productId: number) => {
     setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.id !== productId)
+      prevCartItems.reduce((acc, item) => {
+        if (item.id === productId) {
+          if (item.quantity > 1) {
+            return [...acc, { ...item, quantity: item.quantity - 1 }];
+          }
+          return acc;
+        }
+        return [...acc, item];
+      }, [] as IProduct[])
     );
   };
+
+  const totalValue = cartItems.reduce(
+    (acc, value) => acc + value.price * value.quantity,
+    0
+  );
 
   const getProduct = async () => {
     try {
@@ -54,7 +81,9 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         cartItems,
         addToCart,
         removeFromCart,
- 
+        isCartOpen,
+        setCartOpen,
+        totalValue,
       }}
     >
       {children}

@@ -1,27 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { StyledListSection } from "../StyledComponents/StyledListSection";
 import { ShowMore } from "./ShowMore";
 import { StyledLoading } from "../StyledComponents/StyledLoading";
+import { UserContext } from "../../../providers/UserContext";
 
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  description: string;
-  image: string;
-}
 
 export const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
+   const { products, setProducts, addToCart } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get<Product[]>("/products");
-        setProducts(response.data);
+        const { data } = await api.get("/products");
+        setProducts(data);
         setIsLoading(false); 
       } catch (error) {
         console.error(error);
@@ -49,8 +42,8 @@ export const ProductList = () => {
                 <img src={product.image} alt={product.name} />
               </div>
               <h3>{product.name}</h3>
-              <p>R${parseFloat(product.price).toFixed(2).replace(".", ",")}</p>
-              <ShowMore />
+              <p>R${product.price.toFixed(2).replace(".", ",")}</p>
+              <ShowMore product={product} addToCart={addToCart} />
             </li>
           ))}
         </ul>
