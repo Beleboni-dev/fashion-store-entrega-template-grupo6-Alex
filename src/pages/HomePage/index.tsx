@@ -6,10 +6,11 @@ import { StyledBannerSection } from "./StyledComponents/StyledBannerSection";
 import { useContext, useRef } from "react";
 import { UserContext } from "../../providers/UserContext";
 import { CartComponent } from "./HomeComponents/CartComponent";
+import { Backdrop } from "./HomeComponents/BackDrop";
 
 export const HomePage = () => {
   const productListRef = useRef<HTMLDivElement | null>(null);
-  const { isCartOpen } = useContext(UserContext);
+  const { isCartOpen, setCartOpen } = useContext(UserContext);
 
   const scrollToProductList = () => {
     if (productListRef.current) {
@@ -23,7 +24,12 @@ export const HomePage = () => {
   };
   return (
     <HomeTemplate>
-      {isCartOpen && <CartComponent/>}
+      {isCartOpen && (
+        <>
+          <Backdrop onClick={()=> setCartOpen(!isCartOpen)}/>
+          <CartComponent />
+        </>
+      )}
       <StyledHomePage>
         <StyledBannerSection>
           <div>

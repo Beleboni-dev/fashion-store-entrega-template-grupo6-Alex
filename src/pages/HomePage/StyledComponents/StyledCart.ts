@@ -25,12 +25,14 @@ export const StyledCart = styled.div<StyledCartProps>`
   position: absolute;
   top: 0;
   right: ${({ open }) => (open ? "0" : "-512px")};
-  width: 512px;
+  width: 90%;
+  max-width: 512px;
   background: var(--Color-White);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 31px 42px;
   height: 100vh;
   overflow-y: auto;
+  z-index: 2;
   animation: ${({ open }) =>
     open
       ? css`
@@ -47,14 +49,14 @@ export const StyledCart = styled.div<StyledCartProps>`
 
     h2 {
       color: var(--Color-Black);
-      font-size: 32px;
+      font-size: clamp(18px, 6vw, 32px);
       font-family: var(--Font-Secundary);
       font-weight: 500;
       text-transform: uppercase;
     }
     img {
-      width: 48px;
-      height: 48px;
+      width: clamp(22px, 6vw, 48px);
+      height: clamp(22px, 6vw, 48px);
     }
   }
 
@@ -76,17 +78,17 @@ export const StyledCart = styled.div<StyledCartProps>`
       height: 80px;
     }
     img:last-child {
-      width: 36px;
+      width: clamp(26px, 3vw, 32px);
       cursor: pointer;
     }
-   
+
     div:nth-child(2) {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       margin-left: 29px;
       height: 100%;
-      span{
+      span {
         display: flex;
         justify-content: center;
         width: 16px;
@@ -94,28 +96,27 @@ export const StyledCart = styled.div<StyledCartProps>`
         background-color: var(--Color-Grey);
         color: var(--Color-Black);
         font-weight: 500;
-        font-size: 14px
+        font-size: 14px;
       }
     }
-    
-    span{
+
+    span {
       color: var(--Color-Black);
       font-size: 14px;
       font-family: var(--Font-Primary);
       font-weight: 700;
-
     }
 
     p:first-child {
       color: var(--Color-Black);
-      font-size: 19px;
+      font-size: clamp(14px, 3vw, 19px);
       font-family: var(--Font-Primary);
       font-weight: 700;
     }
 
     p {
       color: var(--Color-Black);
-      font-size: 18px;
+      font-size: clamp(13px, 3vw, 18px);
       font-family: var(--Font-Secundary);
       font-weight: 400;
     }
