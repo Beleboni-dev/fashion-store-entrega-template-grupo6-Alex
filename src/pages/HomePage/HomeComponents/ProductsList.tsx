@@ -42,7 +42,7 @@ export const ProductList = () => {
                 <img src={product.image} alt={product.name} />
               </div>
               <h3>{product.name}</h3>
-              <p>R${product.price.toFixed(2).replace(".", ",")}</p>
+              <p>R$ {product.price.toFixed(2).replace(".", ",")}</p>
               <ShowMore product={product} addToCart={addToCart} />
             </li>
           ))}

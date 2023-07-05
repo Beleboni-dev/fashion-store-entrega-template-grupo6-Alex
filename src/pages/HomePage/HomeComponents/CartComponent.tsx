@@ -17,7 +17,9 @@ export const CartComponent = () => {
           onClick={() => setCartOpen(!isCartOpen)}
         />
       </div>
-      <ul>
+      {cartItems.length > 0 ? (
+<>
+<ul>
         {cartItems.map((item) => (
           <li key={item.id}>
             <div>
@@ -34,9 +36,12 @@ export const CartComponent = () => {
       </ul>
       <div>
         <p>
-          <span>TOTAL</span>R${totalValue.toFixed(2).replace(".", ",")}
+          <span>TOTAL</span> R$ {totalValue.toFixed(2).replace(".", ",")}
         </p>
       </div>
+</>
+       ) : <span>Adicione items ao carrinho</span>
+      }
     </StyledCart>
   );
 };
