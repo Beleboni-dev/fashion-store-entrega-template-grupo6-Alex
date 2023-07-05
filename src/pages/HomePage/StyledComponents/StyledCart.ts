@@ -125,7 +125,6 @@ export const StyledCart = styled.div<StyledCartProps>`
   div:nth-child(3) {
     position: absolute;
     bottom: 32px;
-    display: flex;
 
     p {
       color: var(--Color-Black);
