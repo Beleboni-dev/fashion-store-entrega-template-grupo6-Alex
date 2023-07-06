@@ -1,6 +1,8 @@
-import { IProduct } from "../../../providers/UserContext";
+import { Link } from "react-router-dom";
+import { IProduct, UserContext } from "../../../providers/UserContext";
 import { StyledShowMore } from "../StyledComponents/SyledShowMore";
 import { LiaCartPlusSolid } from "react-icons/lia";
+import { useContext } from "react";
 
 interface ShowMoreProps {
   product: IProduct;
@@ -11,13 +13,15 @@ export const ShowMore: React.FC<ShowMoreProps> = ({ product, addToCart }) => {
   const handleAddToCart = () => {
     addToCart(product);
   };
-
+  const { setSelectedProduct} = useContext(UserContext)
   return (
     <StyledShowMore onClick={handleAddToCart}>
       <div>
         <LiaCartPlusSolid size={36} color={"white"} />
       </div>
-      <span>Saiba Mais</span>
+      <Link to={`/home/product/${encodeURIComponent(product.name)}`} onClick={()=> setSelectedProduct(product)}>
+        Saiba Mais
+      </Link>
     </StyledShowMore>
   );
 };
