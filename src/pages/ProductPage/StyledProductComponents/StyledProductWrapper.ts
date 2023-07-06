@@ -5,8 +5,16 @@ export const StyledProductWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
     img{
-        width: 50%;
-        max-width: 580px;
+        max-width: 50%;
     }
+
+@media(max-width: 768px){
+    flex-direction: column;
+    text-align: center;
+    img{
+        max-width: 100%;
+    }
+}
 `;
