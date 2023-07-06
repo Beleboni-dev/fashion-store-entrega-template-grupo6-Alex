@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { api } from "../services/api";
 import { useState } from "react";
 
@@ -12,6 +12,8 @@ interface IUserContext {
   removeFromCart: (productId: number) => void;
   isCartOpen: boolean;
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedProduct: IProduct | null;
+  setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct | null>>;
   totalValue: number;
 }
 
@@ -32,6 +34,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [cartItems, setCartItems] = useState<IProduct[]>([]);
   const [isCartOpen, setCartOpen] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
 
   const addToCart = (product: IProduct) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -65,13 +68,15 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     0
   );
 
-  const getProduct = async () => {
-    try {
-      const { data } = await api.get("/products");
-      setProducts(data);
-    } catch (error) {}
-  };
-  getProduct();
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const { data } = await api.get("/products");
+        setProducts(data);
+      } catch (error) {}
+    };
+    getProduct();
+  }, []);
 
   return (
     <UserContext.Provider
@@ -84,6 +89,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         isCartOpen,
         setCartOpen,
         totalValue,
+        selectedProduct,
+        setSelectedProduct,
       }}
     >
       {children}
