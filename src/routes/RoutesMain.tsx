@@ -7,12 +7,12 @@ import { AdminPage } from "../pages/AdminPage";
 
 export const RoutesMain = () => {
     return (
-        <Routes>
-            <Route path="/" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/product" element={<ProductPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-    )
+      <Routes>
+        <Route path="/" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/home/product/:name" element={<ProductPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    );
 }

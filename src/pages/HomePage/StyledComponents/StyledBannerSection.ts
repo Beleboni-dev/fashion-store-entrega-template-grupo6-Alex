@@ -3,9 +3,11 @@ import { styled } from "styled-components";
 export const StyledBannerSection = styled.section`
   display: flex;
   gap: 60px;
-  align-items: center;  
+  align-items: center;
+  flex-wrap: wrap;
+
   div:first-child {
-    width:100%;
+    width: 100%;
     max-width: 941px;
     border-radius: 40px;
     height: 691px;
@@ -20,13 +22,13 @@ export const StyledBannerSection = styled.section`
     max-width: 338px;
 
     h1 {
-      font-size: 100px;
+      font-size: clamp(40px, 6vw, 100px);
       font-family: var(--Font-Secundary);
       font-weight: 500;
     }
     button {
       margin-top: 94px;
-      width: 272px;
+      width: clamp(240px, 100%, 272px);
       height: 60px;
       background-color: var(--Color-Black);
       color: var(--Color-White);
@@ -35,6 +37,23 @@ export const StyledBannerSection = styled.section`
       font-weight: 500;
       letter-spacing: 2.16px;
       text-transform: uppercase;
+    }
+  }
+  @media (max-width: 1488px) {
+    div:last-child {
+      min-width: 90%;
+    }
+  }
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    div:first-child {
+      height: 302px;
+    }
+
+    button {
+      min-width: 80%;
     }
   }
 `;
