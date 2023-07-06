@@ -11,12 +11,13 @@ export const Reset = createGlobalStyle`
 
     body{
         width: 100%;
+        min-height: 100vh;
         background-color: var(--Color-Grey-4);
     }
 
     #root{
         width: 100%;
-        height: 100%;
+        min-height: 100vh;
     }
 
     button{
