@@ -19,7 +19,7 @@ export const ShowMore: React.FC<ShowMoreProps> = ({ product, addToCart }) => {
       <div>
         <LiaCartPlusSolid size={36} color={"white"} />
       </div>
-      <Link to={`/home/product/${encodeURIComponent(product.name)}`} onClick={()=> setSelectedProduct(product) }>
+      <Link to={`/home/product/${encodeURIComponent(product.name)}`} onClick={()=> setSelectedProduct(product)}>
         Saiba Mais
       </Link>
     </StyledShowMore>
