@@ -3,6 +3,7 @@ import { IProduct, UserContext } from "../../../providers/UserContext";
 import { StyledShowMore } from "../StyledComponents/SyledShowMore";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { useContext } from "react";
+import { StyledLink } from "../StyledComponents/StyledLink";
 
 interface ShowMoreProps {
   product: IProduct;
@@ -19,9 +20,9 @@ export const ShowMore: React.FC<ShowMoreProps> = ({ product, addToCart }) => {
       <div>
         <LiaCartPlusSolid size={36} color={"white"} />
       </div>
-      <Link to={`/home/product/${encodeURIComponent(product.name)}`} onClick={()=> setSelectedProduct(product)}>
+      <StyledLink to={`/home/product/${encodeURIComponent(product.name)}`} onClick={()=> setSelectedProduct(product)}>
         Saiba Mais
-      </Link>
+      </StyledLink>
     </StyledShowMore>
   );
 };
