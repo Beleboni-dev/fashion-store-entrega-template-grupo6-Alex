@@ -7,12 +7,11 @@ import { Overlay, StyledModal } from "./style"
 
 
 
-
 export const DeleteProduct = () => {
+    
 
+const {modalDeleteProduct, closeDeleteModal, selectedProduct, deleteProduct} = useContext(AdminContext)
 
-const {modalDeleteProduct, closeDeleteModal} = useContext(AdminContext)
-     
 if(modalDeleteProduct)
     return(
         <Overlay role="dialog">
@@ -23,7 +22,7 @@ if(modalDeleteProduct)
                 </header>
                 <p>Deseja realmente excluir esse produto?</p>
                 <div>
-                    <button><HiOutlineTrash/>EXCLUIR PRODUTO</button>
+                    <button onClick={() => {deleteProduct(selectedProduct?.id)}}><HiOutlineTrash/>EXCLUIR PRODUTO</button>
                 </div>
             </StyledModal>
         </Overlay>

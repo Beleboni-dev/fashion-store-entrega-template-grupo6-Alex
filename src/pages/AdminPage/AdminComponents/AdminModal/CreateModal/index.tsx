@@ -26,7 +26,6 @@ export const CreateProduct = () => {
     
       const submit : SubmitHandler<TCreateProduct> = (formData) => {
         adminCreateProduct(formData);
-        console.log(formData)
         reset();
       };
 
