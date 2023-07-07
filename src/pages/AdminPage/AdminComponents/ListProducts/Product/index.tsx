@@ -9,7 +9,8 @@ import { AdminContext } from "../../../../../providers/AdminContext"
 export const Product = () => {
 
     const {products} = useContext(UserContext)
-    const {openEditModal, openDeleteModal} = useContext(AdminContext)
+
+    const {openEditModal, openDeleteModal, setSelectedProduct} = useContext(AdminContext)
 
     
 
@@ -24,8 +25,10 @@ export const Product = () => {
                         <p>R${product.price}</p>
                     </div>
                     <div>
-                        <button onClick={() => {openEditModal(), console.log(product)}}><HiOutlinePencil/></button>
-                        <button onClick={() => openDeleteModal()}><HiOutlineTrash/></button>
+
+                        <button onClick={() => {openEditModal(), setSelectedProduct(product)}}><HiOutlinePencil/></button>
+                        <button onClick={() => {openDeleteModal(), setSelectedProduct(product)}}><HiOutlineTrash/></button>
+
                     </div>
                 </li>
             ))}

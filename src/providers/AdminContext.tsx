@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
-import { UserContext } from "./UserContext";
+
+import { IProduct, UserContext } from "./UserContext";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { useContext } from "react";
@@ -14,28 +15,36 @@ interface ModalContextValue {
   modalCreateProduct: boolean;
   modalDeleteProduct: boolean;
 
+
   openEditModal: () => void;
   closeEditModal: () => void;
-
+  
   openCreateModal: () => void;
   closeCreateModal: () => void;
-
+  
   openDeleteModal: () => void;
   closeDeleteModal: () => void;
+
   adminCreateProduct: (formData: TCreateProduct) => Promise<void>;
   deleteProduct: (productID: number) => Promise<void>
+  adminEditProduct: (formData: TCreateProduct, productID: number) => Promise<void>
+  
+  selectedProduct: IProduct | null;
+  setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct | null>>;
 }
 
 const defaultValue: ModalContextValue = {
   adminCreateProduct: async (formData: TCreateProduct) => {},
   deleteProduct: async (productID: number) => {},
+  adminEditProduct: async(formData: TCreateProduct, productID: number) => {},
+
   modalEditProduct: false,
   modalCreateProduct: false,
   modalDeleteProduct: false,
-
+  setSelectedProduct: () => {}, 
   openEditModal: () => {},
   closeEditModal: () => {},
-
+ selectedProduct: null, 
   openCreateModal: () => {},
   closeCreateModal: () => {},
 
@@ -51,13 +60,15 @@ export const AdminProvider = ({ children }: IAdminProviderProps) => {
   const [modalEditProduct, setModalEditProduct] = useState(false);
   const [modalCreateProduct, setModalCreateProduct] = useState(false);
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
+
 
   const adminCreateProduct = async (formData: TCreateProduct) => {
     try {
     //   const token = localStorage.getItem("token");
       const { data } = await api.post("/products", formData, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjYzNjY5LCJleHAiOjE2ODg2NjcyNjksInN1YiI6IjQifQ.4jf8dUv9309Htj3CCOUWfjGJX60eir3CWoayu17x48Q"}`,
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjgxMTY0LCJleHAiOjE2ODg2ODQ3NjQsInN1YiI6IjQifQ.Hy6t2fqN9DLPtj-oYuyQa2rdAIp1yCFULajSfiaMH48"}`,
         },
       });
 
@@ -76,16 +87,44 @@ export const AdminProvider = ({ children }: IAdminProviderProps) => {
     //   const token = localStorage.getItem("token");
       await api.delete(`/products/${productID}`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjYzNjY5LCJleHAiOjE2ODg2NjcyNjksInN1YiI6IjQifQ.4jf8dUv9309Htj3CCOUWfjGJX60eir3CWoayu17x48Q"}`,
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjgxMTY0LCJleHAiOjE2ODg2ODQ3NjQsInN1YiI6IjQifQ.Hy6t2fqN9DLPtj-oYuyQa2rdAIp1yCFULajSfiaMH48"}`,
         },
       });
-
+    
       setProducts((products) => products.filter((product) => product.id !== productID));
-      toast.success("Tecnologia removida com sucesso!");
+      closeDeleteModal()
+      toast.success("Produto deletado com sucesso.")
     } catch (error) {
       toast.error("Ops! Algo deu errado");
     }
   };
+
+
+  const adminEditProduct = async (formData: TCreateProduct, productID: number) => {
+    try {
+    //   const token = localStorage.getItem("token");
+      const { data } = await api.put(`/products/${productID}`, formData, {
+        headers: {
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjgxMTY0LCJleHAiOjE2ODg2ODQ3NjQsInN1YiI6IjQifQ.Hy6t2fqN9DLPtj-oYuyQa2rdAIp1yCFULajSfiaMH48"}`,
+        },
+      });
+
+      setProducts((products) =>
+        products.map((product) => {
+          if (product.id === productID) {
+            return data;
+          } else {
+            return product;
+          }
+        })
+      );
+      toast.success("Produto atualizado com sucesso!");
+      closeEditModal();
+    } catch (error) {
+      toast.error("Ops! Algo deu errado");
+    }
+  };
+
 
   const openEditModal = () => {
     setModalEditProduct(true);
@@ -120,6 +159,9 @@ export const AdminProvider = ({ children }: IAdminProviderProps) => {
     modalDeleteProduct,
     adminCreateProduct,
     deleteProduct,
+    selectedProduct,
+    setSelectedProduct,
+    adminEditProduct,
   };
 
   return (
