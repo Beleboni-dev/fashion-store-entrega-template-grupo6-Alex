@@ -54,7 +54,7 @@ export const StyledFormRegister = styled.form`
                text-transform: uppercase;
           }
 
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 1300px) {
                justify-content: center;
           }
    }

@@ -3,6 +3,7 @@ import { Input } from "../../../../components/Input"
 import { StyledFormLogin } from "./style"
 import { TFormLoginValues, formLoginSchema } from "./formLoginSchema"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
 
 export const FormLogin = () => {
     const { register, handleSubmit, formState: { errors }} =useForm<TFormLoginValues>({
@@ -17,7 +18,9 @@ export const FormLogin = () => {
             <Input placeholder="Senha" password={true} helper={errors.password?.message} {...register("password")} />
             <div className="btnContainer">
                 <button>Acessar</button>
-                <button type="button">Cadastre-se</button>
+                <Link to = "/">
+                    <p>Cadastre-se</p>
+                </Link>
             </div>
         </StyledFormLogin>
     )
