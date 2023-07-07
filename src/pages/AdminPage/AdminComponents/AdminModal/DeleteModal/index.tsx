@@ -7,6 +7,7 @@ import { Overlay, StyledModal } from "./style"
 
 
 
+
 export const DeleteProduct = () => {
     
 

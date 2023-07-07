@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+
 import { IProduct, UserContext } from "./UserContext";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
@@ -13,6 +14,8 @@ interface ModalContextValue {
   modalEditProduct: boolean;
   modalCreateProduct: boolean;
   modalDeleteProduct: boolean;
+
+
   openEditModal: () => void;
   closeEditModal: () => void;
   
@@ -121,6 +124,7 @@ export const AdminProvider = ({ children }: IAdminProviderProps) => {
       toast.error("Ops! Algo deu errado");
     }
   };
+
 
   const openEditModal = () => {
     setModalEditProduct(true);

@@ -5,12 +5,11 @@ import { CreateProduct } from "../AdminModal/CreateModal"
 import { DeleteProduct } from "../AdminModal/DeleteModal"
 import { EditProduct } from "../AdminModal/EditModal"
 import { Product } from "./Product"
+import { useState } from "react"
 
 
 export const ProductsListAdmin = () => {
-    
 
-   
 
     return(
         <ul>

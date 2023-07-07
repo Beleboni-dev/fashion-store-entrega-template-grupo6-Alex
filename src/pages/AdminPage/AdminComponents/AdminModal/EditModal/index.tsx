@@ -15,10 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 export const EditProduct = () => {
 
 
+
 const {modalEditProduct, closeEditModal, selectedProduct, adminEditProduct} = useContext(AdminContext)
-
-
-
 
 const {
     register,
@@ -31,7 +29,9 @@ const {
 
 
   const submit : SubmitHandler<TEditProduct> = (formData) => {
+
     adminEditProduct(formData, selectedProduct.id);
+
     reset();
   };
      
@@ -44,10 +44,12 @@ if(modalEditProduct)
                         <h2>EDITAR PRODUTO</h2>
                         <button onClick={() => closeEditModal()}>X</button>
                     </header>
+
                     <Input type="text" placeholder={selectedProduct?.name} error={errors.name} {...register("name")}/>
                     <Input type="text" placeholder={selectedProduct?.price.toString()} error={errors.price} {...register("price")}/>
                     <Input type="text" placeholder={selectedProduct?.image} error={errors.image} {...register("image")}/>                    
                     <Input type="text"   placeholder={selectedProduct?.description} error={errors.description}{...register("description")}/>
+
                     <div>
                         <button type="submit"><HiOutlinePencil/>EDITAR PRODUTO</button>
                     </div>
