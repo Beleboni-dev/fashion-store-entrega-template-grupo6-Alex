@@ -36,7 +36,7 @@ if(modalCreateProduct)
             <StyledModal>
                 <form onSubmit={handleSubmit(submit)}>
                     <header>
-                        <h2>EDITAR PRODUTO</h2>
+                        <h2>NOVO PRODUTO</h2>
                         <button onClick={() => closeCreateModal()}>X</button>
                     </header>
                     <Input type="text" placeholder="NOME" error={errors.name} {...register("name")}/>
