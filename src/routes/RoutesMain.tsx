@@ -4,15 +4,22 @@ import { LoginPage } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
 import { ProductPage } from "../pages/ProductPage";
 import { AdminPage } from "../pages/AdminPage";
+import { ProtectedRoutes } from "./ProtectedRoutes";
+import { PublicRoutes } from "./PublicRoutes";
+import { TesteRoutes } from "./RotasTeste";
 
 export const RoutesMain = () => {
-    return (
-      <Routes>
+  return (
+    <Routes>
+      <Route element={<PublicRoutes />}>
         <Route path="/" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/home/product/:name" element={<ProductPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-      </Routes>
-    );
-}
+      </Route>
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/adminpage" element={<AdminPage />} />
+      </Route>
+    </Routes>
+  );
+};
