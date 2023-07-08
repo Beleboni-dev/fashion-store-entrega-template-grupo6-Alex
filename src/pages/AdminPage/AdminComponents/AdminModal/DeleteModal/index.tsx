@@ -11,7 +11,7 @@ import { Overlay, StyledModal } from "./style"
 export const DeleteProduct = () => {
     
 
-const {modalDeleteProduct, closeDeleteModal, selectedProduct, deleteProduct} = useContext(AdminContext)
+const {modalDeleteProduct, setModalDeleteProduct, selectedProduct, deleteProduct} = useContext(AdminContext)
 
 if(modalDeleteProduct)
     return(
@@ -19,7 +19,7 @@ if(modalDeleteProduct)
             <StyledModal>
                 <header>
                     <h2>EXCLUIR PRODUTO</h2>
-                    <button onClick={() => closeDeleteModal()}>X</button>
+                    <button onClick={() => setModalDeleteProduct(false)}>X</button>
                 </header>
                 <p>Deseja realmente excluir esse produto?</p>
                 <div>

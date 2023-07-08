@@ -16,7 +16,7 @@ export const EditProduct = () => {
 
 
 
-const {modalEditProduct, closeEditModal, selectedProduct, adminEditProduct} = useContext(AdminContext)
+const {modalEditProduct, setModalEditProduct, selectedProduct, adminEditProduct} = useContext(AdminContext)
 
 const {
     register,
@@ -42,7 +42,7 @@ if(modalEditProduct)
                 <form onSubmit={handleSubmit(submit)}>
                     <header>
                         <h2>EDITAR PRODUTO</h2>
-                        <button onClick={() => closeEditModal()}>X</button>
+                        <button onClick={() => setModalEditProduct(false)}>X</button>
                     </header>
 
                     <Input type="text" placeholder={selectedProduct?.name} error={errors.name} {...register("name")}/>

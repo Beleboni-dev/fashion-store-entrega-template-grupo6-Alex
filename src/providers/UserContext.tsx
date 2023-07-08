@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const UserContext = createContext({} as IUserContext);
 
-interface IUserContext {
+export interface IUserContext {
   products: IProduct[];
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
   cartItems: IProduct[];

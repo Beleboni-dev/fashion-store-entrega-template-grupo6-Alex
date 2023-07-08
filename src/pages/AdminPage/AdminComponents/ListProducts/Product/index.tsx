@@ -1,6 +1,6 @@
 import { HiOutlinePencil } from "react-icons/hi"
 import { HiOutlineTrash } from "react-icons/hi"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { UserContext } from "../../../../../providers/UserContext"
 import { AdminContext } from "../../../../../providers/AdminContext"
 
@@ -10,7 +10,7 @@ export const Product = () => {
 
     const {products} = useContext(UserContext)
 
-    const {openEditModal, openDeleteModal, setSelectedProduct} = useContext(AdminContext)
+    const {setModalEditProduct, setModalDeleteProduct, setSelectedProduct} = useContext(AdminContext)
 
     
 
@@ -26,8 +26,8 @@ export const Product = () => {
                     </div>
                     <div>
 
-                        <button onClick={() => {openEditModal(), setSelectedProduct(product)}}><HiOutlinePencil/></button>
-                        <button onClick={() => {openDeleteModal(), setSelectedProduct(product)}}><HiOutlineTrash/></button>
+                        <button onClick={() => {setModalEditProduct(true), setSelectedProduct(product)}}><HiOutlinePencil/></button>
+                        <button onClick={() => {setModalDeleteProduct(true), setSelectedProduct(product)}}><HiOutlineTrash/></button>
 
                     </div>
                 </li>
