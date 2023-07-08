@@ -12,7 +12,7 @@ import { Input } from "../../Input"
 
 export const CreateProduct = () => {
 
-    const {modalCreateProduct, closeCreateModal, adminCreateProduct} = useContext(AdminContext)
+    const { setModalCreateProduct, adminCreateProduct} = useContext(AdminContext)
 
     const {
         register,
@@ -29,15 +29,13 @@ export const CreateProduct = () => {
         reset();
       };
 
-   
-if(modalCreateProduct)
     return(
         <Overlay role="dialog">
             <StyledModal>
                 <form onSubmit={handleSubmit(submit)}>
                     <header>
                         <h2>EDITAR PRODUTO</h2>
-                        <button onClick={() => closeCreateModal()}>X</button>
+                        <button onClick={() => setModalCreateProduct(false)}>X</button>
                     </header>
                     <Input type="text" placeholder="NOME" error={errors.name} {...register("name")}/>
                     <Input type="text" placeholder="PREÇO (R$)" error={errors.price} {...register("price")}/>

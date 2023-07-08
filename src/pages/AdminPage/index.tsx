@@ -17,7 +17,7 @@ export const AdminPage = () => {
                     <button onClick={() => {setIsHomeAdmin(true)}}>Início</button>
                     <button onClick={() => {setIsHomeAdmin(false)}}>Produtos</button>
                 </nav>
-                {isHomeAdmin == true ? <AdminHome /> : <AdminProduct />}
+                {isHomeAdmin ? <AdminHome /> : <AdminProduct />}
             </main>
             <Footer />
         </>

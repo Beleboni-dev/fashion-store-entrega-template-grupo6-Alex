@@ -5,12 +5,19 @@ import { BsArrowLeftShort } from 'react-icons/bs';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TFormRegisterValues, formRegisterSchema } from "./formRegisterSchema";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AdminContext } from "../../../../providers/AdminContext";
 
 export const FormRegister = () => {
-    const { register, handleSubmit, formState: { errors }} =useForm<TFormRegisterValues>({
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const { adminRegister } = useContext(AdminContext);
+    const { register, handleSubmit,reset, formState: { errors }} =useForm<TFormRegisterValues>({
         resolver: zodResolver(formRegisterSchema),
     })
-    const onSubmit: SubmitHandler<TFormRegisterValues> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<TFormRegisterValues> = (data) => {
+        adminRegister(data,setIsLoading);
+        reset();
+    };
     return (
         <StyledFormRegister onSubmit={handleSubmit(onSubmit)}>
             <Link to = "/login">
@@ -22,9 +29,11 @@ export const FormRegister = () => {
             <Input placeholder="nome" helper={errors.name?.message} {...register("name")} />
             <Input placeholder="e-mail" helper={errors.email?.message} {...register("email")} />
             <Input placeholder="senha" password={true} helper={errors.password?.message} {...register("password")} />
-            <Input placeholder="confirmar senha" password={true} helper={errors.confirm?.message} />
+            <Input placeholder="confirmar senha" password={true} helper={errors.confirm?.message} {...register("confirm")} />
             <div className="btnContainer">
-                <button type="submit"> Cadastrar-se </button>
+                <button type="submit"> 
+                    {isLoading ? "Cadastrando..." : "Cadastrar-se"}
+                </button>
             </div>
         </StyledFormRegister>
     )

@@ -9,7 +9,7 @@ import { AdminContext } from "../../../../providers/AdminContext"
 
 export const AdminProduct = () => {
 
-    const {openCreateModal} = useContext(AdminContext)
+    const {setModalCreateProduct} = useContext(AdminContext)
 
     return(
         <main>
@@ -18,7 +18,7 @@ export const AdminProduct = () => {
                     <h1>PRODUTOS</h1>
                     <p>Gerencie os produtos do catálogo</p>
                 </div>
-                <button onClick={() => openCreateModal()}> <IoIosAddCircleOutline/> NOVO PRODUTO</button>
+                <button onClick={() => setModalCreateProduct(true)}> <IoIosAddCircleOutline/> NOVO PRODUTO</button>
             </section>
             <section>
                 <ProductsListAdmin />
