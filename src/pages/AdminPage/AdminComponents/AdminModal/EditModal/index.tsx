@@ -32,16 +32,19 @@ const {
   });
 
   useEffect(() => {
-    // Define os valores iniciais dos inputs com base no produto selecionado
-    setValue("name", selectedProduct?.name || "");
-    setValue("price", selectedProduct?.price ? selectedProduct.price.toString() : "");
-    setValue("image", selectedProduct?.image || "");
-    setValue("description", selectedProduct?.description || "");
+    if (selectedProduct) {
+      setValue("name", selectedProduct.name || "");
+      setValue("price", selectedProduct.price ? selectedProduct.price.toString() : "");
+      setValue("image", selectedProduct.image || "");
+      setValue("description", selectedProduct.description || "");
+    }
   }, [selectedProduct, setValue]);
 
   const submit : SubmitHandler<TEditProduct> = (formData) => {
 
-    adminEditProduct(formData, selectedProduct.id);
+    if (selectedProduct) {
+      adminEditProduct(formData, selectedProduct.id);
+    }
 
     reset();
   };

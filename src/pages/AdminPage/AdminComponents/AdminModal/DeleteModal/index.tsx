@@ -24,7 +24,7 @@ if(modalDeleteProduct)
                 <button onClick={() => setModalDeleteProduct(false)}><GrClose size={24} /></button>
                 <p>Deseja realmente excluir esse produto?</p>
                 <div className="btnContainer">
-                    <button onClick={() => {deleteProduct(selectedProduct?.id)}}><HiOutlineTrash size={26} /><p>Excluir produto</p></button>
+                    <button onClick={() => {selectedProduct && deleteProduct(selectedProduct?.id)}}><HiOutlineTrash size={26} /><p>Excluir produto</p></button>
                 </div>
             </StyledModal>
         </Overlay>

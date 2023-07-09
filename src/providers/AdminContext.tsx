@@ -77,7 +77,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       });
 
       setProducts([...products, data]);
-      toast.success("Tecnologia adicionada com sucesso!");
+      toast.success("Produto adicionado com sucesso!");
       setModalCreateProduct(false);
 
     } catch (error) {
