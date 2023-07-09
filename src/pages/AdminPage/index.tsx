@@ -23,7 +23,7 @@ export const AdminPage = () => {
                         <button onClick={() => {setIsHomeAdmin(true)}}>Início</button>
                         <button onClick={() => {setIsHomeAdmin(false)}}>Produtos</button>
                     </div>
-                    <button onClick={()=>userLogout()}><LuLogOut/>Sair</button>
+                    <button onClick={()=>userLogout()}><LuLogOut size={24} /><p>Sair</p></button>
                 </nav>
                 {isHomeAdmin ? <AdminHome /> : <AdminProduct />}
             </main>

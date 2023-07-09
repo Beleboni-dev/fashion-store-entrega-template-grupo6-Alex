@@ -84,7 +84,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
   const navigate = useNavigate();
 
   const userLogout = () => {
-    navigate("/home");
+    navigate("/");
     localStorage.removeItem("@TOKEN");
   };
 

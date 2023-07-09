@@ -28,7 +28,7 @@ export const FormLogin = () => {
                 <button disabled = {isLoading}>
                     {isLoading ? "Logando..." : "Acessar"}
                 </button>
-                <Link to = "/">
+                <Link to = "/register">
                     <p>Cadastre-se</p>
                 </Link>
             </div>

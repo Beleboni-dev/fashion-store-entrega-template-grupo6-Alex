@@ -20,12 +20,40 @@ export const StyledAdminPage =  styled.div`
             display: flex;
             align-items: center;
             gap: 2.125rem;
+            justify-content: space-between;
+
+            > div {
+                display: flex;
+                align-items: center;
+                gap: 2.125rem;
+                > button {
+                    font-family: var(--Font-Secundary);
+                    font-size: 1.25rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+            }
 
             > button {
-                font-family: var(--Font-Secundary);
-                font-size: 1.25rem;
-                font-weight: 500;
-                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                > p {
+                    font-family: var(--Font-Secundary);
+                    font-size: 1rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+            }
+
+            @media screen and (max-width: 300px) {
+                flex-direction: column-reverse;
+                align-items: flex-end;
+
+                > div {
+                    width: 100%;
+                }
             }
         }
     }
