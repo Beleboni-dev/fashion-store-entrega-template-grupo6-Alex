@@ -46,7 +46,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       setIsLoading(true);
       await api.post("/users", formData);
       toast.success("Conta criada com sucesso!");
-      navigate("/login");
+      navigate("/admin");
     } catch (error) {
       toast.error("Opa! Algo deu errado ao registrar!");
     } finally {
@@ -60,7 +60,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       const { data } = await api.post("/login", formData);
       localStorage.setItem("@TOKEN", data.accessToken);
       toast.success("Login realizado com sucesso!");
-      navigate("/admin");
+      navigate("/adminpage");
     } catch {
       toast.error("Opa! Algo deu errado ao logar!");
     } finally {
