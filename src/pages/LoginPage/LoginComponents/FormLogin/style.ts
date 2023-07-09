@@ -6,7 +6,7 @@ export const StyledFormLogin = styled.form`
 
     >h2 {
         font-family: var(--Font-Secundary);
-        font-size: 3.75rem;
+        font-size: clamp(2.5rem,3.5vw,3.75rem) ;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
@@ -34,7 +34,7 @@ export const StyledFormLogin = styled.form`
             text-transform: uppercase;
         }
 
-        >button:last-child {
+        >a {
             border: 1px solid var(--Color-Black);
             width: 195px;
             height: 60px;
@@ -44,7 +44,22 @@ export const StyledFormLogin = styled.form`
             line-height: normal;
             letter-spacing: 2.16px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            >p {
+                color: var(--Color-Black);
+            }
         }
 
+        @media screen and (max-width: 1300px) {
+               justify-content: center;
+          }
+
     }
+
+    @media screen and (max-width: 1300px) {
+               align-items: center;
+          }
 `

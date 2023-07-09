@@ -4,15 +4,21 @@ import { LoginPage } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
 import { ProductPage } from "../pages/ProductPage";
 import { AdminPage } from "../pages/AdminPage";
+import { ProtectedRoutes } from "./ProtectedRoutes";
+import { PublicRoutes } from "./PublicRoutes";
 
 export const RoutesMain = () => {
-    return (
-      <Routes>
-        <Route path="/" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
+  return (
+    <Routes>
+      <Route element={<PublicRoutes />}>
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/admin" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/home/product/:name" element={<ProductPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-      </Routes>
-    );
-}
+      </Route>
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/adminpage" element={<AdminPage />} />
+      </Route>
+    </Routes>
+  );
+};

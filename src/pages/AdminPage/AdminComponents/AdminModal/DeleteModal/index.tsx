@@ -1,30 +1,33 @@
-import { useContext } from "react"
-import { AdminContext } from "../../../../../providers/AdminContext"
+import { useContext } from "react";
+import { AdminContext } from "../../../../../providers/AdminContext";
+import { HiOutlineTrash } from "react-icons/hi";
+import { Overlay, StyledModal } from "./style";
+import { GrClose } from 'react-icons/gr';
 
 
 
 
 
-export const EditProduct = () => {
 
-    const {editProduct, setEditProduct} = useContext(AdminContext)
-
+export const DeleteProduct = () => {
     
 
-    if(editProduct)
+const {modalDeleteProduct, setModalDeleteProduct, selectedProduct, deleteProduct} = useContext(AdminContext)
+
+if(modalDeleteProduct)
     return(
-        <div role="dialog">
-            <div>
+        <Overlay role="dialog">
+            <StyledModal>
                 <header>
-                    <h2>EDITAR PRODUTO</h2>
-                    <button onClick={() => {setEditProduct(false)}}>X</button>
+                    <h2>EXCLUIR PRODUTO</h2>
                 </header>
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-            </div>
-        </div>
+                <button onClick={() => setModalDeleteProduct(false)}><GrClose size={24} /></button>
+                <p>Deseja realmente excluir esse produto?</p>
+                <div className="btnContainer">
+                    <button onClick={() => {deleteProduct(selectedProduct?.id)}}><HiOutlineTrash size={26} /><p>Excluir produto</p></button>
+                </div>
+            </StyledModal>
+        </Overlay>
 
     )
 }

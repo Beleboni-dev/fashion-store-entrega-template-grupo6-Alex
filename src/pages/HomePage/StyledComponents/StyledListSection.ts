@@ -18,6 +18,40 @@ export const StyledListSection = styled.section`
     gap: 40px;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    > li {
+      width: 100%;
+      max-width: 20.75rem;
+      
+      
+
+
+      >div {
+        width: 100%;
+        > img {
+          width: 100%;
+          max-height: 23.9375rem;
+          border-radius: 20px;
+        }
+      }
+
+      > h3 {
+        font-size: 1.1875rem;
+        font-weight: 700;
+      }
+
+      > p {
+        font-size: 1.125rem;
+        font-weight: 400;
+      }
+
+      @media screen and (max-width: 770px) {
+        height: 25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
   }
 
   h3 {
