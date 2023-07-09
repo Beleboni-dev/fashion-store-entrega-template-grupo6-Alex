@@ -1,128 +1,148 @@
-import React, { createContext, useState } from "react";
-import { UserContext } from "./UserContext";
-import { toast } from "react-toastify";
+import { createContext, ReactNode, Dispatch, SetStateAction, useContext, useState } from "react";
+import { toast } from 'react-toastify';
 import { api } from "../services/api";
-import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { TFormLoginValues } from "../pages/LoginPage/LoginComponents/FormLogin/formLoginSchema";
+import { TFormRegisterValues } from "../pages/RegisterPage/RegisterComponents/FormRegister/formRegisterSchema";
+import { UserContext, IProduct } from "./UserContext";
 import { TCreateProduct } from "../pages/AdminPage/AdminComponents/AdminModal/CreateModal/modalCreateSchema";
 
-interface IAdminProviderProps {
-  children: React.ReactNode;
+
+interface AdminProviderProps {
+  children: ReactNode;
 }
 
-interface ModalContextValue {
-  modalEditProduct: boolean;
-  modalCreateProduct: boolean;
-  modalDeleteProduct: boolean;
-
-  openEditModal: () => void;
-  closeEditModal: () => void;
-
-  openCreateModal: () => void;
-  closeCreateModal: () => void;
-
-  openDeleteModal: () => void;
-  closeDeleteModal: () => void;
+interface AdminContextProps {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  adminRegister: (formData: TFormRegisterValues, setIsLoading: Dispatch<SetStateAction<boolean>>) => Promise<void>;
+  adminLogin: (formData: TFormLoginValues, setIsLoading: Dispatch<SetStateAction<boolean>>) => Promise<void>;
+  modalEditProduct:boolean;
+  setModalEditProduct: Dispatch<SetStateAction<boolean>>;
+  modalCreateProduct:boolean;
+  setModalCreateProduct: Dispatch<SetStateAction<boolean>>;
+  modalDeleteProduct:boolean;
+  setModalDeleteProduct: Dispatch<SetStateAction<boolean>>;
+  selectedProduct: IProduct | null;
+  setSelectedProduct: Dispatch<SetStateAction<IProduct | null>>;
   adminCreateProduct: (formData: TCreateProduct) => Promise<void>;
-  deleteProduct: (productID: number) => Promise<void>
+  deleteProduct: (productID: number) => Promise<void>;
+  adminEditProduct: (formData: TCreateProduct, productID: number) => Promise<void>;
 }
 
-const defaultValue: ModalContextValue = {
-  adminCreateProduct: async (formData: TCreateProduct) => {},
-  deleteProduct: async (productID: number) => {},
-  modalEditProduct: false,
-  modalCreateProduct: false,
-  modalDeleteProduct: false,
+export const AdminContext = createContext<AdminContextProps>({} as AdminContextProps);
 
-  openEditModal: () => {},
-  closeEditModal: () => {},
+export const AdminProvider = ({ children }: AdminProviderProps) => {
+  const {setProducts,products} = useContext(UserContext);
+  const [modalEditProduct, setModalEditProduct] = useState<boolean>(false);
+  const [modalCreateProduct, setModalCreateProduct] = useState<boolean>(false);
+  const [modalDeleteProduct, setModalDeleteProduct] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
+  const token = localStorage.getItem("@TOKEN");
+  const navigate = useNavigate();
 
-  openCreateModal: () => {},
-  closeCreateModal: () => {},
+  const adminRegister = async (formData: TFormRegisterValues, setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+    try {
+      setIsLoading(true);
+      await api.post("/users", formData);
+      toast.success("Conta criada com sucesso!");
+      navigate("/admin");
+    } catch (error) {
+      toast.error("Opa! Algo deu errado ao registrar!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  openDeleteModal: () => {},
-  closeDeleteModal: () => {},
-};
-
-export const AdminContext = createContext<ModalContextValue>(defaultValue);
-
-export const AdminProvider = ({ children }: IAdminProviderProps) => {
-  const { products, setProducts } = useContext(UserContext);
-
-  const [modalEditProduct, setModalEditProduct] = useState(false);
-  const [modalCreateProduct, setModalCreateProduct] = useState(false);
-  const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
+  const adminLogin = async (formData: TFormLoginValues, setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.post("/login", formData);
+      localStorage.setItem("@TOKEN", data.accessToken);
+      toast.success("Login realizado com sucesso!");
+      navigate("/adminpage");
+    } catch {
+      toast.error("Opa! Algo deu errado ao logar!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const adminCreateProduct = async (formData: TCreateProduct) => {
     try {
-    //   const token = localStorage.getItem("token");
       const { data } = await api.post("/products", formData, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjYzNjY5LCJleHAiOjE2ODg2NjcyNjksInN1YiI6IjQifQ.4jf8dUv9309Htj3CCOUWfjGJX60eir3CWoayu17x48Q"}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       setProducts([...products, data]);
-      toast.success("Tecnologia adicionada com sucesso!");
+      toast.success("Produto adicionado com sucesso!");
+      setModalCreateProduct(false);
 
-      closeCreateModal();
     } catch (error) {
       toast.error("Ops! Algo deu errado");
     }
   };
-
 
   const deleteProduct = async (productID: number) => {
     try {
-    //   const token = localStorage.getItem("token");
       await api.delete(`/products/${productID}`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZW1haWwuY29tIiwiaWF0IjoxNjg4NjYzNjY5LCJleHAiOjE2ODg2NjcyNjksInN1YiI6IjQifQ.4jf8dUv9309Htj3CCOUWfjGJX60eir3CWoayu17x48Q"}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-
+    
       setProducts((products) => products.filter((product) => product.id !== productID));
-      toast.success("Tecnologia removida com sucesso!");
+      toast.success("Produto deletado com sucesso.");
+      setModalDeleteProduct(false);
     } catch (error) {
       toast.error("Ops! Algo deu errado");
     }
   };
 
-  const openEditModal = () => {
-    setModalEditProduct(true);
-  };
-  const closeEditModal = () => {
-    setModalEditProduct(false);
-  };
+  const adminEditProduct = async (formData: TCreateProduct, productID: number) => {
+    try {
+      const { data } = await api.put(`/products/${productID}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  const openCreateModal = () => {
-    setModalCreateProduct(true);
-  };
-  const closeCreateModal = () => {
-    setModalCreateProduct(false);
-  };
-
-  const openDeleteModal = () => {
-    setModalDeleteProduct(true);
-  };
-  const closeDeleteModal = () => {
-    setModalDeleteProduct(false);
-  };
-
-  const value: ModalContextValue = {
-    openEditModal,
-    openCreateModal,
-    openDeleteModal,
-    closeEditModal,
-    closeCreateModal,
-    closeDeleteModal,
-    modalEditProduct,
-    modalCreateProduct,
-    modalDeleteProduct,
-    adminCreateProduct,
-    deleteProduct,
+      setProducts((products) =>
+        products.map((product) => {
+          if (product.id === productID) {
+            return data;
+          } else {
+            return product;
+          }
+        })
+        );
+        toast.success("Produto atualizado com sucesso!");
+        setModalEditProduct(false);
+    } catch (error) {
+      toast.error("Ops! Algo deu errado");
+    }
   };
 
   return (
-    <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
+    <AdminContext.Provider value={{ 
+      isLoading: false, setIsLoading: () => {}, 
+      adminLogin, 
+      adminRegister,
+      modalEditProduct,
+      setModalEditProduct,
+      modalCreateProduct, 
+      setModalCreateProduct,
+      modalDeleteProduct, 
+      setModalDeleteProduct,
+      selectedProduct, 
+      setSelectedProduct,
+      adminCreateProduct,
+      deleteProduct,
+      adminEditProduct,
+      }}>
+      {children}
+    </AdminContext.Provider>
   );
 };

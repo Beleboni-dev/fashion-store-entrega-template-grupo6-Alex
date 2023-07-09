@@ -1,4 +1,5 @@
-import { ForwardedRef, forwardRef ,InputHTMLAttributes } from "react"
+import { ForwardedRef, forwardRef ,InputHTMLAttributes } from "react";
+import { StyledInputAdmin } from "./styles";
  
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement>{
     error: any;  
@@ -8,10 +9,10 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement>{
 export const Input = forwardRef(
     ({ error, ...rest} : IInputProps, ref: ForwardedRef<HTMLInputElement>) => {
         return(
-            <div>
+            <StyledInputAdmin>
                 <input ref={ref} type="text" {...rest} />
                 {error ? <p>{error.message}</p> : null}
-            </div>
+            </StyledInputAdmin>
         )
     }
 )

@@ -1,34 +1,25 @@
 // import { Product } from "./Product"
 
+
+import { AdminContext } from "../../../../providers/AdminContext"
 import { CreateProduct } from "../AdminModal/CreateModal"
 import { DeleteProduct } from "../AdminModal/DeleteModal"
 import { EditProduct } from "../AdminModal/EditModal"
+import { StyledListProducts } from "./styles"
 import { Product } from "./Product"
-import { useState } from "react"
+import { useContext } from "react"
+
 
 export const ProductsListAdmin = () => {
-    const [selectProduct, setSelectProduct] = useState<ISelectProduct>()
 
-    interface IProduct {
-        id:string,
-        name:string,
-        image:string,
-        price:string,
-        description: string     
-    }
-
-    interface ISelectProduct {
-        selectProduct: IProduct | null,
-        setSelectProduct: React.Dispatch<React.SetStateAction<IProduct | null>>
-    }
-  
+    const {modalCreateProduct,modalDeleteProduct,modalEditProduct} = useContext(AdminContext);
 
     return(
-        <ul>
-            <DeleteProduct />
-            <EditProduct />
-            <CreateProduct/>
+        <StyledListProducts>
+            {modalEditProduct ? <EditProduct /> : null}
+            {modalDeleteProduct ? <DeleteProduct /> : null}
+            {modalCreateProduct ? <CreateProduct /> : null}          
             <Product />
-        </ul>
+        </StyledListProducts>
     )
 }

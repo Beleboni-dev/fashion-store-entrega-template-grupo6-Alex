@@ -1,10 +1,12 @@
 import { createContext, useEffect } from "react";
 import { api } from "../services/api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export const UserContext = createContext({} as IUserContext);
 
-interface IUserContext {
+export interface IUserContext {
   products: IProduct[];
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
   cartItems: IProduct[];
@@ -15,6 +17,7 @@ interface IUserContext {
   selectedProduct: IProduct | null;
   setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct | null>>;
   totalValue: number;
+  userLogout: () => void
 }
 
 interface IUserProviderProps {
@@ -78,6 +81,13 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     getProduct();
   }, []);
 
+  const navigate = useNavigate();
+
+  const userLogout = () => {
+    navigate("/");
+    localStorage.removeItem("@TOKEN");
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -91,6 +101,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         totalValue,
         selectedProduct,
         setSelectedProduct,
+        userLogout
       }}
     >
       {children}

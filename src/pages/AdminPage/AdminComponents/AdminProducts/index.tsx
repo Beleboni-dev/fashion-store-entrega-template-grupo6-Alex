@@ -1,28 +1,26 @@
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { ProductsListAdmin } from "../ListProducts"
 import { useContext } from "react"
-
 import { AdminContext } from "../../../../providers/AdminContext"
+import { StyledAdminProduct } from "./styles"
 
 
 
 
 export const AdminProduct = () => {
 
-    const {openCreateModal} = useContext(AdminContext)
+    const {setModalCreateProduct} = useContext(AdminContext)
 
     return(
-        <main>
+        <StyledAdminProduct>
             <section>
                 <div>
-                    <h1>PRODUTOS</h1>
+                    <h1>Produtos</h1>
                     <p>Gerencie os produtos do catálogo</p>
                 </div>
-                <button onClick={() => openCreateModal()}> <IoIosAddCircleOutline/> NOVO PRODUTO</button>
+                <button onClick={() => setModalCreateProduct(true)}> <IoIosAddCircleOutline size={36} /> <p>Novo Produto</p></button>
             </section>
-            <section>
-                <ProductsListAdmin />
-            </section>
-        </main>
+            <ProductsListAdmin />
+        </StyledAdminProduct>
     )
 }
