@@ -20,7 +20,7 @@ export const FormRegister = () => {
     };
     return (
         <StyledFormRegister onSubmit={handleSubmit(onSubmit)}>
-            <Link to = "/login">
+            <Link to = "/admin">
                 <BsArrowLeftShort size={24} color="#000000" />
                 <p>Voltar</p>
             </Link>
