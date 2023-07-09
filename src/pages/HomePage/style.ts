@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+;
 
 export const StyledHomePage = styled.main`
   width: 90vw;
