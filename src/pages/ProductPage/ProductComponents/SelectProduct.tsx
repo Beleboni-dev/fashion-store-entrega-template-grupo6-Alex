@@ -21,7 +21,7 @@ export const ProductDetails = () => {
           <img src={image} alt={name} />
             <StyledProductDetails>
               <h2>{name}</h2>
-              <span>{`R$ ${price.toFixed(2).replace(".", ",")}`}</span>
+              <span>{`R$ ${price}`}</span>
               <p>{description}</p>
               <div>
                 <LiaCartPlusSolid size={36} color={"white"} />

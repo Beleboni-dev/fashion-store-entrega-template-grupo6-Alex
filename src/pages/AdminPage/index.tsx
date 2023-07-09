@@ -3,6 +3,7 @@ import { Footer } from "../../components/Footer"
 import { HeaderAdmin } from "../../components/Header/HeaderAdmin"
 import { AdminHome } from "./AdminComponents/AdminHome"
 import { AdminProduct } from "./AdminComponents/AdminProducts"
+import { StyledAdminPage } from "./styles"
 
 export const AdminPage = () => {
     const [ isHomeAdmin, setIsHomeAdmin ] = useState(true)
@@ -10,7 +11,7 @@ export const AdminPage = () => {
     
 
     return (
-        <>
+        <StyledAdminPage>
             <HeaderAdmin />
             <main>
                 <nav>
@@ -20,6 +21,6 @@ export const AdminPage = () => {
                 {isHomeAdmin ? <AdminHome /> : <AdminProduct />}
             </main>
             <Footer />
-        </>
+        </StyledAdminPage>
     )
 }

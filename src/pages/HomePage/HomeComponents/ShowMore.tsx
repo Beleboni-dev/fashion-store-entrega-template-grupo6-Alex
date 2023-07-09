@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { IProduct, UserContext } from "../../../providers/UserContext";
 import { StyledShowMore } from "../StyledComponents/SyledShowMore";
 import { LiaCartPlusSolid } from "react-icons/lia";

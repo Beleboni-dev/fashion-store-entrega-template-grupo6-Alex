@@ -9,12 +9,11 @@ export const StyledBannerSection = styled.section`
   div:first-child {
     width: 100%;
     max-width: 941px;
-    border-radius: 40px;
-    height: 691px;
+    max-height: 691px;
     overflow: hidden;
     img {
       width: 100%;
-      height: 100%;
+      max-height: 100%;
     }
   }
   div:last-child {
@@ -48,9 +47,6 @@ export const StyledBannerSection = styled.section`
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    div:first-child {
-      height: 302px;
-    }
 
     button {
       min-width: 80%;
