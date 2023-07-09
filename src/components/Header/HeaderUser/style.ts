@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+;
 
 export const StyledHeaderUser = styled.header`
   display: flex;
